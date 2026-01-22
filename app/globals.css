@@ -3,17 +3,26 @@
   --paper:#0e1626;
   --paper2:#0c1321;
   --text:#e6edf3;
+
   --muted:#9db0c3;
+  --muted2: rgba(157,176,195,.75);
+
   --border:#1e2a3f;
   --accent:#9ae6b4;
   --btn:#1f2a44;
+
+  --glass: rgba(255,255,255,.06);
+  --glass2: rgba(255,255,255,.09);
+  --glassBorder: rgba(255,255,255,.12);
 }
 
 *{ box-sizing:border-box; }
 html,body{ padding:0; margin:0; }
+
 body{
   font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-  background: radial-gradient(1200px 600px at 50% 0%, #0f1a2d 0%, var(--bg) 60%);
+  background:
+    radial-gradient(1200px 600px at 50% 0%, #0f1a2d 0%, var(--bg) 60%);
   color:var(--text);
   letter-spacing: .2px;
 }
@@ -22,41 +31,36 @@ a{ color:var(--accent); text-decoration:none; }
 a:hover{ text-decoration:underline; }
 
 .wrap{
-  max-width: 820px;
+  max-width: 1120px;
   margin: 0 auto;
   padding: 28px 18px 80px;
 }
 
-.topbar{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom: 18px;
-}
-
-.brand{
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-  font-weight: 700;
-  letter-spacing: .3px;
-}
-
-.pill{
-  display:inline-block;
-  margin-left:8px;
-  padding:6px 10px;
-  border:1px solid #223048;
-  border-radius:999px;
-  color:var(--muted);
-  font-size:12px;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-}
-
-.card{
-  background: linear-gradient(180deg, var(--paper) 0%, var(--paper2) 100%);
-  border:1px solid var(--border);
-  border-radius: 20px;
-  padding: 20px;
+/* Glass helpers used by dashboard */
+.glass{
+  background: linear-gradient(180deg, var(--glass2), var(--glass));
+  border: 1px solid var(--glassBorder);
+  border-radius: 22px;
   box-shadow: 0 10px 30px rgba(0,0,0,.28);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.glass-inner{
+  background: rgba(10,16,28,.35);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 18px;
+}
+
+.muted{
+  color:var(--muted);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  font-size: 14px;
+}
+
+.muted2{
+  color:var(--muted2);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
 }
 
 .h1{
@@ -65,10 +69,9 @@ a:hover{ text-decoration:underline; }
   line-height: 1.15;
 }
 
-.muted{
-  color:var(--muted);
+.small{
+  font-size: 13px;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-  font-size: 14px;
 }
 
 .divider{
@@ -116,6 +119,170 @@ textarea:focus{
   filter: brightness(1.06);
 }
 
-.small{
+/* Dashboard layout */
+.dash{
+  display:grid;
+  grid-template-columns: 260px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.sidebar{
+  padding: 16px;
+  position: sticky;
+  top: 16px;
+}
+
+.sideTitle{
+  font-weight: 900;
+  letter-spacing: .3px;
+  font-size: 18px;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+}
+
+.sideSub{
+  margin-top: 4px;
+  color: var(--muted2);
   font-size: 13px;
-  font-family: ui-sans-serif, sy
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+}
+
+.nav{
+  margin-top: 14px;
+  display:flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.navItem{
+  text-align:left;
+  padding: 10px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.05);
+  color: var(--text);
+  cursor:pointer;
+  transition: transform .14s ease, filter .14s ease, border-color .14s ease;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+}
+.navItem:hover{
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+  border-color: rgba(255,255,255,.18);
+}
+.navItem.active{
+  background: rgba(255,255,255,.08);
+  border-color: rgba(154,230,180,.35);
+  box-shadow: 0 0 0 6px rgba(154,230,180,.08);
+}
+
+.sideFoot{
+  margin-top: 18px;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.main{ display:flex; flex-direction: column; gap: 16px; }
+
+.banner{
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+
+.bannerBg{
+  position:absolute;
+  inset:-40px;
+  background:
+    radial-gradient(600px 220px at 20% 20%, rgba(154,230,180,.10), transparent 60%),
+    radial-gradient(700px 260px at 80% 30%, rgba(255,255,255,.10), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+  opacity: .95;
+}
+
+.bannerInner{
+  position: relative;
+  padding: 18px;
+}
+
+.brandRow{
+  display:flex;
+  justify-content: space-between;
+  align-items:flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.brandBig{
+  font-weight: 950;
+  letter-spacing: .6px;
+  font-size: 26px;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+}
+
+.votd{
+  min-width: 240px;
+  text-align: right;
+}
+
+.vref{
+  font-size: 14px;
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+}
+
+.panel{ padding: 18px; }
+
+.panelHead{
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.h2{
+  font-size: 18px;
+  font-weight: 850;
+  margin-bottom: 2px;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+}
+
+.pad{ padding: 14px; }
+
+.entry{ margin-bottom: 12px; }
+.entryText{ white-space: pre-wrap; margin-top: 6px; line-height: 1.55; }
+
+.promptGrid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.promptCard{
+  text-align:left;
+  padding: 14px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.05);
+  cursor:pointer;
+  transition: transform .14s ease, filter .14s ease, border-color .14s ease;
+}
+.promptCard:hover{
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+  border-color: rgba(255,255,255,.18);
+}
+.promptTitle{
+  font-weight: 850;
+  margin-bottom: 4px;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+}
+.promptBody{ margin-top: 8px; color: var(--muted); line-height: 1.45; }
+
+@media (max-width: 860px){
+  .dash{ grid-template-columns: 1fr; }
+  .sidebar{ position: relative; top: auto; }
+  .votd{ text-align:left; }
+}
